@@ -37,11 +37,21 @@ function initDb() {
 
   // SQLite fallback using better-sqlite3
   const Database = require('better-sqlite3');
-  const dataDir = path.join(__dirname, '../../data');
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
+  
+  // In serverless environments (like Netlify/AWS), the filesystem is read-only except for /tmp
+  const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY || process.env.NODE_ENV === 'production';
+  let dbPath;
+  
+  if (isServerless) {
+    dbPath = '/tmp/samasyasetu.db';
+  } else {
+    const dataDir = path.join(__dirname, '../../data');
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    dbPath = path.join(dataDir, 'samasyasetu.db');
   }
-  const dbPath = path.join(dataDir, 'samasyasetu.db');
+  
   const sqlite = new Database(dbPath);
 
   // Enable foreign keys and WAL mode
