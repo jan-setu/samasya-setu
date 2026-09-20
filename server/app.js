@@ -68,6 +68,17 @@ if (fs.existsSync(clientDistPath)) {
   });
 }
 
+// Catch-all 404 handler to debug pathing issues
+app.use((req, res, next) => {
+  res.status(404).json({
+    error: 'Route not found in Express',
+    method: req.method,
+    path: req.path,
+    originalUrl: req.originalUrl,
+    url: req.url
+  });
+});
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error('Unhandled Server Error:', err);
