@@ -4,9 +4,16 @@ const migrate = require('../../server/db/migrate');
 
 let isMigrated = false;
 
-const serverlessHandler = serverless(app);
+const serverlessHandler = serverless(app, {
+  basePath: '/.netlify/functions/api'
+});
 
 exports.handler = async (event, context) => {
+  console.log('--- NEW REQUEST ---');
+  console.log('HTTP Method:', event.httpMethod);
+  console.log('Original Path:', event.path);
+  console.log('Headers:', JSON.stringify(event.headers));
+
   // Ensure DB tables exist on cold start
   if (!isMigrated) {
     try {
@@ -17,13 +24,10 @@ exports.handler = async (event, context) => {
     }
   }
 
-  // Rewrite path to match Express routes
-  if (event.path && event.path.startsWith('/.netlify/functions/api')) {
-    event.path = event.path.replace('/.netlify/functions/api', '/api');
-  } else if (event.path && event.path.startsWith('/api')) {
-    // If it already starts with /api (depending on how Netlify passes it), keep it
-  }
-
-  // Adjust path if needed for Netlify functions rewrite
-  return serverlessHandler(event, context);
+  // Rewrite path just in case Express needs /api prefix instead of root
+  // We mounted both /auth and /api/auth in app.js, so serverless basePath should map /.netlify/functions/api/auth/login to /auth/login
+  
+  const response = await serverlessHandler(event, context);
+  console.log('Response status:', response.statusCode);
+  return response;
 };
