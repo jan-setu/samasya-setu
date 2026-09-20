@@ -1,0 +1,19 @@
+[build]
+  command = "npm --prefix client run build"
+  publish = "client/dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Redirect API calls to Netlify Serverless Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Single Page App routing fallback for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

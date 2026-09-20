@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="20" fill="#15803D" />
+  <!-- Bridge Arch -->
+  <path d="M15 70 C 35 35, 65 35, 85 70" stroke="#FBBF24" stroke-width="7" stroke-linecap="round"/>
+  <!-- Bridge Pillars -->
+  <line x1="32" y1="52" x2="32" y2="70" stroke="#FBBF24" stroke-width="4" stroke-linecap="round"/>
+  <line x1="50" y1="44" x2="50" y2="70" stroke="#FBBF24" stroke-width="4" stroke-linecap="round"/>
+  <line x1="68" y1="52" x2="68" y2="70" stroke="#FBBF24" stroke-width="4" stroke-linecap="round"/>
+  <!-- Innovation Lightbulb / Gear Spark on top -->
+  <circle cx="50" cy="25" r="9" fill="#FFFFFF"/>
+  <path d="M50 12 L50 7 M62 17 L66 13 M38 17 L34 13" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <!-- Base Ground -->
+  <line x1="10" y1="72" x2="90" y2="72" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+</svg>

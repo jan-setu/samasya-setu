@@ -1,0 +1,36 @@
+{
+  "name": "samasyasetu",
+  "version": "1.0.0",
+  "description": "SamasyaSetu - Societal Innovation Collaboration Platform (Jharkhand SIH Problem-to-Solution)",
+  "main": "server/index.js",
+  "scripts": {
+    "server": "node server/index.js",
+    "client": "npm --prefix client run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seed": "node server/db/seed.js",
+    "build": "npm --prefix client run build",
+    "start": "node server/index.js"
+  },
+  "keywords": [
+    "sih",
+    "governance",
+    "innovation",
+    "crowdsourcing",
+    "problem-solving"
+  ],
+  "author": "SamasyaSetu Team",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^11.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.3",
+    "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
