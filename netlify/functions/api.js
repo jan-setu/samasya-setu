@@ -1,6 +1,7 @@
 const serverless = require('serverless-http');
 const app = require('../../server/app');
 const migrate = require('../../server/db/migrate');
+const seed = require('../../server/db/seed');
 
 let isMigrated = false;
 
@@ -25,13 +26,14 @@ exports.handler = async (event, context) => {
   
   console.log('Rewritten Path for Express:', event.path);
 
-  // Ensure DB tables exist on cold start
+  // Ensure DB tables exist and demo data is seeded on cold start
   if (!isMigrated) {
     try {
       await migrate();
+      await seed();
       isMigrated = true;
     } catch (e) {
-      console.warn('Cold start migration notice:', e.message);
+      console.warn('Cold start setup notice:', e.message);
     }
   }
 
